@@ -19,28 +19,33 @@ public class LogController {
     @GetMapping("/log")
     public String get(@RequestParam(value = "message", required = false) String message) {
         final String msg = StringUtils.hasText(message) ? message : "Please type message";
-        log.info("[DolphaGo] logstash log test = {}", msg);
+        log.info("[GET] message = {}", msg);
         return msg;
     }
 
     @PostMapping("/log")
     public String post(@RequestParam(value = "message", required = false) String message) {
         final String msg = StringUtils.hasText(message) ? message : "Please type message";
-        log.info("[DolphaGo] logstash log test = {}", msg);
+        log.info("[POST] message = {}", msg);
         return msg;
     }
 
     @PutMapping("/log")
     public String put(@RequestParam(value = "message", required = false) String message) {
         final String msg = StringUtils.hasText(message) ? message : "Please type message";
-        log.info("[DolphaGo] logstash log test = {}", msg);
+        log.info("[PUT] message = {}", msg);
         return msg;
     }
 
     @DeleteMapping("/log")
     public String delete(@RequestParam(value = "message", required = false) String message) {
         final String msg = StringUtils.hasText(message) ? message : "Please type message";
-        log.info("[DolphaGo] logstash log test = {}", msg);
+        log.info("[DELETE] message = {}", msg);
         return msg;
+    }
+
+    @GetMapping("/ex")
+    public String exception() {
+        throw new IllegalArgumentException("exception 발생!");
     }
 }
