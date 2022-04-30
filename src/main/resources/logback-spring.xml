@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
 
   <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
     <destination>127.0.0.1:4560</destination>
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder"></encoder>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <mdc />
+        <pattern>
+          <pattern>{"serviceID":"Spring-ELK-Example"}</pattern>
+        </pattern>
+        <timestamp />
+        <context />
+        <threadName />
+        <logLevel />
+        <message />
+        <loggerName />
+        <logstashMarkers />
+        <stackTrace />
+        <callerData />
+      </providers>
+    </encoder>
   </appender>
 
-  <root>
-    <level value="INFO" />
-    <appender-ref ref="LOGSTASH" />
+  <root level="INFO">
     <appender-ref ref="CONSOLE" />
+    <appender-ref ref="LOGSTASH" />
   </root>
-
-
 </configuration>
